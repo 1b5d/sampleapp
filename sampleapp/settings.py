@@ -104,4 +104,46 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'formatters': {
+        'verbose': {
+            'format': '[%(asctime)s] %(levelname)s %(module)s %(process)d %(message)s'
+        },
+        'simple': {
+            'format': '[%(asctime)s] %(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.environ.get('SAMPLEAPP_LOG_FILE', 'log/app.log'),
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'sampleapp': {
+            'handlers': ['file'],
+            'level': os.environ.get('SAMPLEAPP_LOG_LEVEL', 'INFO'),
+            'propagate': True,
+        },
+    },
+}
+
 FIXTURE_DIRS = ['tests/fixtures']

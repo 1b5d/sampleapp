@@ -3,17 +3,26 @@ from sampleapp.models import SampleSite
 
 
 class SiteListView(ListView):
+    """
+    A view to expose a list of sites
+    """
     model = SampleSite
     queryset = SampleSite.objects.order_by('id')
     template_name = 'site-list.html'
 
 
 class SiteDetailView(DetailView):
+    """
+    A view to expose the details of a site
+    """
     model = SampleSite
     template_name = 'site_detail.html'
 
 
 class SummaryView(ListView):
+    """
+    A view to expose the SUM summary
+    """
     model = SampleSite
     queryset = SampleSite.objects.order_by('id')
     template_name = 'summary.html'
@@ -26,6 +35,9 @@ class SummaryView(ListView):
 
 
 class SummaryAverageView(ListView):
+    """
+    A view to expose the AVG summary
+    """
     model = SampleSite
     queryset = SampleSite.objects.order_by('id')
     template_name = 'summary.html'
