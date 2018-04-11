@@ -6,7 +6,7 @@ services:
       args:
         - POSTGRES_HOST=db
         - POSTGRES_PORT=5432
-        - POSTGRES_DB=sampleapp_test
+        - POSTGRES_DB=sampleapp
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=postgres
         - DJANGO_SETTINGS_MODULE=sampleapp.settings
@@ -14,11 +14,13 @@ services:
       - db
     depends_on:
       - db
-    command: bash -c "dockerize -wait tcp://db:5432 && python -m pytest tests/"
+    ports:
+      - "8000:8000"
+    command: bash -c "dockerize -wait tcp://db:5432 -timeout 20s && ./manage.py migrate && ./manage.py loaddata data.json && gunicorn sampleapp.wsgi -b 0.0.0.0:8000"
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_PORT=5432
-      - POSTGRES_DB=sampleapp_test
+      - POSTGRES_DB=sampleapp
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - DJANGO_SETTINGS_MODULE=sampleapp.settings
@@ -27,7 +29,9 @@ services:
     restart: always
     ports:
       - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=sampleapp_test
+      - POSTGRES_DB=sampleapp
