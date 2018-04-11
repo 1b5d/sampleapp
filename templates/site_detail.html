@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Site Details - {{ samplesite.name }}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td><strong>Date</strong></td>
+                <td><strong>A Value</strong></td>
+                <td><strong>B Value</strong></td>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for value in samplesite.values.all %}
+            <tr>
+                <td>{{ value.date_created|date:"N d, Y" }}</td>
+                <td>{{ value.a_value|floatformat:2 }}</td>
+                <td>{{ value.b_value|floatformat:2 }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

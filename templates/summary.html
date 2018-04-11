@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load getattribute %}
+
+{% block content %}
+<div class="container">
+        <h1>Summary</h1>
+
+          <a href="/summary"><button type="button" class="btn btn-primary active">Sum</button></a>
+          <a href="/summary-average"><button type="button" class="btn btn-primary">Average</button></a>
+
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <td><strong>Site</strong></td>
+                    <td><strong>A Value</strong></td><td><strong>B Value</strong></td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for site in samplesite_list %}
+                <tr>
+                    <td>{{ site.name }}</td>
+                    <td>{{ site|getattribute:aggr_attr_a|floatformat:2 }}</td>
+                    <td>{{ site|getattribute:aggr_attr_b|floatformat:2 }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>3MW - Sample App</title>
+    <meta name="viewport" content="width=520, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+</head>
+<body>
+    <nav class="navbar navbar-default">
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active" role="presentation">
+                    <a href="/sites">Sites</a>
+                </li>
+                <li role="presentation">
+                    <a href="/summary">Summary</a>
+                </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+      </nav>
+    {% block content %}{% endblock content %}
+</body>
+</html>
